@@ -1,5 +1,3 @@
-ReadMe
-
 Part 1 - Collector (collector.py)
 
 producer.py streams live public posts from Bluesky Jetstream into the Kafka topic "topic1". Each post is also appended to a local JSONL file. This is the first stage of the pipeline:
