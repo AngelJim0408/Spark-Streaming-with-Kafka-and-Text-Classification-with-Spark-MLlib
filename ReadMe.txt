@@ -27,3 +27,13 @@ Check if it works
 Open http://localhost:8080 -> Topics -> topic1 -> Messages.
 
 
+Part 2
+
+
+
+
+Part 2.3
+run
+python collector.py --bootstrap localhost:9092 --topic topic1 --out messages.jsonl
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:<SPARK_VERSION> \
+    part2_streaming.py --model-dir saved_ag_news_model --bootstrap localhost:9092 --topic topic1
