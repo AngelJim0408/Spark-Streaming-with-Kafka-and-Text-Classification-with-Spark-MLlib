@@ -26,6 +26,8 @@ Run the collector:
 Check if it works
 Open http://localhost:8080 -> Topics -> topic1 -> Messages.
 
+
+Run one terminal per step in order:
 1. Kafka 
 cd KAFKA_HOME
 KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
