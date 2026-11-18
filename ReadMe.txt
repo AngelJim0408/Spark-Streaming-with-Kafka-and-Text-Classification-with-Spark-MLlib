@@ -26,6 +26,34 @@ Run the collector:
 Check if it works
 Open http://localhost:8080 -> Topics -> topic1 -> Messages.
 
+1. Kafka 
+cd KAFKA_HOME
+KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+bin/kafka-server-start.sh config/server.properties
+
+2. Create Topics
+cd KAFKA_HOME
+bin/kafka-topics.sh --create --topic topic1 --bootstrap-server localhost:9092
+bin/kafka-topics.sh --create --topic topic2 --bootstrap-server localhost:9092
+
+3. Elasticsearch
+ES_HOME/bin/elasticsearch
+
+4. Kibana
+KIBANA_HOME/bin/kibana 
+(open http://localhost:5601)
+
+5. Collector
+python collector.py --bootstrap localhost:9092 --topic topic1
+
+6. Spark NER app
+spark-submit \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.13:$(python -c "import pyspark; print(pyspark.__version__)") \
+  Part1NERStream.py --bootstrap localhost:9092 --checkpoint ./checkpoints/ner --trigger "1 minute" --console
+
+7. Logstash
+LOGSTASH_HOME/bin/logstash -f "$(pwd)/logstash-ner.conf"
 
 Part 2 - (2.1 - 2.2) - AG News Model Training & Batch Classification
 
