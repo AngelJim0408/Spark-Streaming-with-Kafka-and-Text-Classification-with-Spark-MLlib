@@ -27,9 +27,26 @@ Check if it works
 Open http://localhost:8080 -> Topics -> topic1 -> Messages.
 
 
-Part 2
+Part 2 - (2.1 - 2.2) - AG News Model Training & Batch Classification
 
+Install the following Python packages:
+    pip install pyspark==3.5.3 pandas pyarrow
 
+Download the AG News training parquet file (train-00000-of-00001.parquet) from:
+    https://huggingface.co/datasets/fancyzhx/ag_news
+
+-------------------------
+
+run
+spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:<SPARK_VERSION> \
+    part2_classification.py --ag-news <path_to_ag_news_parquet> --model-dir saved_ag_news_model --output-dir part2_outputs --bootstrap localhost:9092 --topic topic1
+
+Expected output:
+    saved_ag_news_model/ (trained Spark MLlib PipelineModel)
+    part2_outputs/all_batch_predictions.csv
+    part2_outputs/hand_labeled_50.csv
+
+-------------------------
 
 
 Part 2.3
